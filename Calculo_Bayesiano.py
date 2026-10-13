@@ -1,37 +1,25 @@
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.model_selection import train_test_split
 import pandas as pd
 
 data = {
     'text': [
-        "Hola, ¿cómo estás? ¿Querés jugar algo online?",
-       "¿Cuántos años tenés? No le digas a nadie que hablamos.",
-        "Sos muy linda, no le muestres esto a tus papás.",
-        "¿Terminaste la tarea de matemáticas?",
-        "Podés mandarme una foto tuya, pero que sea solo para mí.",
-        "¿Querés que te ayude con el juego que no podías pasar?",
-        "No le contés a nadie que hablamos por acá, ¿sí?",
-        "¿Te gustó la película de ayer?",
-        "¿Estás solo en casa ahora?",
-        "¿Querés hacer una videollamada para estudiar juntos?",
-        "No le digas a tus padres que te escribí, es nuestro secreto.",
-        "¿Cómo te fue en el examen de historia?",
-        "Mandame una foto tuya, pero que nadie más la vea.",
-        "¿Jugamos Minecraft esta tarde?",
-        "Sos muy especial para mí, no le cuentes a nadie lo que hablamos.",
-        "¿Querés que te pase los apuntes de biología?",
-        "¿Podés mostrarme cómo estás vestida ahora?",
-        "¿Tenés ganas de salir a andar en bici mañana?",
-        "¿Querés que estudiemos juntos para el parcial?",
-        "No hace falta que le digas a nadie que hablamos tanto."
+        "El presidente anunció una nueva reforma educativa",
+        "Descubren que la vacuna convierte a las personas en robots",
+        "La NASA confirma el hallazgo de agua en Marte ",
+        "Científicos afirman que la Tierra es plana",
+        "El ministerio de salud lanza campaña contra el dengue",
+        "Celebridades usan crema milagrosa para rejuvenecer 30 años",
+        "Se inaugura el nuevo hospital en la ciudad",
+        "Estudio revela que comer chocolate cura el cáncer",
+        "Gobierno aprueba ley de protección ambiental",
+        "Investigadores aseguran que los teléfonos espían nuestros sueños",
     ],
     'label': [
-        'no grooming', 'grooming', 'grooming', 'no grooming', 'grooming',
-        'no grooming', 'grooming', 'no grooming', 'grooming', 'no grooming',
-        'grooming', 'no grooming', 'grooming', 'no grooming', 'grooming',
-        'no grooming', 'grooming', 'no grooming', 'no grooming', 'grooming'
+        'real', 'fake', 'real', 'fake', 'real',
+        'fake', 'real', 'fake', 'real', 'fake',
     ]
 }
 
@@ -53,21 +41,22 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f'Accuracy: {accuracy * 100:.2f}%')
 
-print("\nReporte de clasificación:")
+print("Reporte de clasificación:")
 print(classification_report(y_test, y_pred))
 
 print("Matriz de confusión:")
 print(confusion_matrix(y_test, y_pred))
 
-nuevos_mensajes = [
-    "¿Podes mandarme una foto tuya? No se la muestras a nadie",
-    "¿Jugamos Minecaraft esta tarde?",
-    "No le digas a tus papas que hablamos, ¿si?",
-    "¿Terminaste el trabajo practico de historia?",
+nuevas_noticias = [
+    "Nuevo estudio demuestra que el café mejora la memoria",
+    "Expertos afirman que los gatos pueden hablar con humanos",
 ]
 
-nuevos_vectorizados = vectorizer.transform(nuevos_mensajes)
-predicciones = model.predict(nuevos_vectorizados)
+nuevas_vectorizadas = vectorizer.transform(nuevas_noticias)
+predicciones = model.predict(nuevas_vectorizadas)
+
+for noticia, prediccion in zip(nuevas_noticias, predicciones):
+    print(f'Noticia: "{noticia}" → Clasificación: {prediccion}')
 
 for mensaje, prediccion in zip(nuevos_mensajes, predicciones):
     print(f'Mensaje: "{mensaje}" → Clasificación: {prediccion}')
